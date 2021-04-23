@@ -11,8 +11,9 @@ vars:
   TZ: "America/Los_Angeles"
 
 includes:
-  kind: ./.taskfiles/kind.yaml
   flux: ./.taskfiles/flux.yaml
+  kind: ./.taskfiles/kind.yaml
+  lint: ./.taskfiles/lint.yaml
 
 tasks:
   bootstrap:
@@ -20,6 +21,14 @@ tasks:
     cmds:
       - task: kind:install
       - task: flux:bootstrap
+
+  lint:
+    desc: Lint the files
+    cmds:
+      - task: lint:yamllint
+      - task: lint:markdownlint
+      - task: lint:linkcheck
+      - task: lint:shellcheck
 
   default:
     cmds:
