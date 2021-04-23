@@ -10,16 +10,16 @@ vars:
   CORE_DIR: "{{.CLUSTER_DIR}}/core"
   TZ: "America/Los_Angeles"
 
+includes:
+  kind: ./.taskfiles/kind.yaml
+  flux: ./.taskfiles/flux.yaml
+
 tasks:
   bootstrap:
     desc: Bootstrap the entire cluster
     cmds:
-      - flux bootstrap github \
-          --owner=$GITHUB_USER \
-          --repository=kind-cluster \
-          --branch=main \
-          --path=./cluster/base \
-          --personal
+      - task: kind:install
+      - task: flux:bootstrap
 
   default:
     cmds:

@@ -1,0 +1,25 @@
+---
+version: '3'
+
+vars:
+  CLUSTER_NAME: kind
+  BOOTSTRAP: ./bootstrap
+
+tasks:
+  nuke:
+    desc: Nuke the kind cluster
+    cmds:
+      - kind delete cluster --name {{ .CLUSTER_NAME }}
+
+  install:
+    desc: Install the kind cluster
+    cmds:
+      - kind create cluster --config {{ .BOOTSTRAP }}/config.yaml
+
+  label:
+    desc: Label the worker nodes
+    cmds:
+      - kubectl label node kind-worker node-role.kubernetes.io/worker=worker
+      - kubectl label node kind-worker2 node-role.kubernetes.io/worker=worker
+      - kubectl get nodes
+    silent: true
