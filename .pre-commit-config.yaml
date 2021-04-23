@@ -1,0 +1,40 @@
+---
+repos:
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v3.4.0
+    hooks:
+      - id: trailing-whitespace
+      - id: end-of-file-fixer
+      - id: fix-byte-order-marker
+      - id: mixed-line-ending
+
+  - repo: https://github.com/adrienverge/yamllint
+    rev: v1.26.1
+    hooks:
+      - id: yamllint
+        name: Run yamllint
+        description: Lint yaml files
+        entry: yamllint -c .github/.yamllint-config.yaml
+  - repo: https://github.com/igorshubovych/markdownlint-cli
+    rev: v0.27.1
+    hooks:
+      - id: markdownlint
+        name: Run markdownlint
+        description: Lint markdown files
+        entry: markdownlint -c .github/.markdownlint.yaml
+  - repo: https://github.com/gruntwork-io/pre-commit
+    rev: v0.1.12
+    hooks:
+      - id: markdown-link-check
+        name: Run markdown-link-check
+        description: Check link in markdown files
+      - id: shellcheck
+        name: Run shellcheck
+        description: Performs linting on bash scripts
+  - repo: local
+    hooks:
+      - id: check-sops-secrets
+        name: Check for unencrypted SOPS secrets
+        entry: ./hack/check-sops-secrets-hook.sh
+        language: script
+        files: \.(ya?ml)$
