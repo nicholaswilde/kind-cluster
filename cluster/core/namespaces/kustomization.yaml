@@ -5,3 +5,4 @@ resources:
   - metallb-system.yaml
   - ingress-nginx.yaml
   - managed-nfs-storage.yaml
+  - networking.yaml
