@@ -1,0 +1,15 @@
+---
+extends: default
+
+ignore: |
+  **/gotk-components.yaml
+  /server/ansible/roles/xanmanning.k3s/**
+  **/flux-system/**
+  **/discord-secret.yaml
+  **/secret.enc.yaml
+  **/cert-manager.crds.yaml
+rules:
+  line-length:
+    level: warning
+  truthy:
+    allowed-values: ['true', 'false', 'yes', 'no']
