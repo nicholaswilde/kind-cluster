@@ -10,11 +10,13 @@ tasks:
     desc: Nuke the kind cluster
     cmds:
       - kind delete cluster --name {{ .CLUSTER_NAME }}
+    silent: true
 
   install:
     desc: Install the kind cluster
     cmds:
       - kind create cluster --config {{ .BOOTSTRAP }}/config.yaml
+    silent: true
 
   label:
     desc: Label the worker nodes
@@ -22,4 +24,33 @@ tasks:
       - kubectl label node kind-worker node-role.kubernetes.io/worker=worker
       - kubectl label node kind-worker2 node-role.kubernetes.io/worker=worker
       - kubectl get nodes
+    silent: true
+
+  nginx:
+    desc: Install NGINX
+    cmds:
+      - |
+        kubectl apply -f \
+        https://raw.githubusercontent.com/kubernetes/ingress-nginx/controller-{{ .VERSION }}/deploy/static/provider/kind/deploy.yaml
+    vars:
+      VERSION: "v0.44.0"
+    silent: true
+
+  metallb:
+    desc: Deploy metallb
+    cmds:
+      - |
+        kubectl apply -f \
+        https://raw.githubusercontent.com/metallb/metallb/{{ .VERSION }}/manifests/namespace.yaml
+      - |
+        kubectl apply -f \
+        https://raw.githubusercontent.com/metallb/metallb/{{ .VERSION }}/manifests/metallb.yaml
+      - |
+        kubectl create secret generic -n metallb-system memberlist \
+        --from-literal=secretkey="$(openssl rand -base64 128)"
+      - |
+        kubectl apply -f \
+        {{ .CLUSTER_DIR }}/core/operators/metallb/configmap.yaml
+    vars:
+      VERSION: "v0.9.6"
     silent: true
