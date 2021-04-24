@@ -29,6 +29,13 @@ spec:
           paths:
             - path: /
               pathType: Prefix
+    service:
+      additionalServices:
+        - enabled: true
+          nameSuffix: transmission
+          type: LoadBalancer
+          externalIPs:
+            - 172.30.255.200
     persistence:
       config:
         accessMode: ReadWriteOnce
