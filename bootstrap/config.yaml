@@ -17,5 +17,23 @@ nodes:
       - containerPort: 443
         hostPort: 443
         protocol: TCP
+      - containerPort: 9091
+        hostPort: 9091
+        protocol: TCP
+      - containerPort: 8080
+        hostPort: 8080
+        protocol: TCP
+      - containerPort: 8000
+        hostPort: 8000
+        protocol: TCP
+      - containerPort: 7777
+        hostPort: 7777
+        protocol: TCP
+      - containerPort: 51413
+        hostPort: 51413
+        protocol: TCP
+      - containerPort: 51413
+        hostPort: 51413
+        protocol: UDP
   - role: worker
   - role: worker
