@@ -36,6 +36,9 @@ spec:
           type: LoadBalancer
           externalIPs:
             - 172.30.255.200
+      port:
+        port: 9091
+        name: http
     persistence:
       config:
         accessMode: ReadWriteOnce
