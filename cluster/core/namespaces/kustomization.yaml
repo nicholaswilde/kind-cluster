@@ -6,3 +6,4 @@ resources:
   - ingress-nginx.yaml
   - managed-nfs-storage.yaml
   - networking.yaml
+  - media.yaml
