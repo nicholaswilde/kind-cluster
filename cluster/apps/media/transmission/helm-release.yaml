@@ -29,6 +29,8 @@ spec:
           paths:
             - path: /
               pathType: Prefix
+    service:
+      type: LoadBalancer
     persistence:
       config:
         accessMode: ReadWriteOnce
